@@ -1,0 +1,24 @@
+runtime: go
+api_version: go1
+application: metawater-edu-project
+module: default
+version: v1
+
+instance_class: F1
+automatic_scaling:
+  min_idle_instances: 0
+  max_idle_instances: 1
+  min_pending_latency: automatic
+  max_pending_latency: automatic
+  max_concurrent_requests: 10
+# basic_scaling:
+#   max_instances: 2
+#   idle_timeout: 5m
+
+handlers:
+- url: /(.*\.(html|ico))$
+  static_files: static/\1
+  upload: static/.*\.(html|ico)$
+
+- url: /.*
+  script: _go_app
